@@ -103,7 +103,7 @@ fi
 
 mkdir -p $DATASTOREPATH/$2
 
-#Copiar los ficheros de definición de la máquina origen a la máquina clon:
+# Copiar los ficheros de definición de la máquina origen a la máquina clon:
 
 # - fichero de configuración: .vmx:
 
@@ -117,8 +117,8 @@ cp $DATASTOREPATH/$1/$1-000001.vmdk $DATASTOREPATH/$2/$1-000001.vmdk
 
 cp $DATASTOREPATH/$1/$1-000001-delta.vmdk $DATASTOREPATH/$2/$1-000001-delta.vmdk
 
-#Sustituir los nombres de ficheros y sus respectivas referencias dentro deestos por el nombre clon 
-#¡Atención! Esto requiere un pequeño parsing del contenido  para sustituir aquellos campos de los ficheros de configuración que hacen  referencias a los ficheros.
+# Sustituir los nombres de ficheros y sus respectivas referencias dentro deestos por el nombre clon 
+# ¡Atención! Esto requiere un pequeño parsing del contenido  para sustituir aquellos campos de los ficheros de configuración que hacen  referencias a los ficheros.
 
 mv $DATASTOREPATH/$2/$1.vmx  $DATASTOREPATH/$2/$2.vmx
 mv $DATASTOREPATH/$2/$1-000001.vmdk $DATASTOREPATH/$2/$2-000001.vmdk
@@ -129,7 +129,7 @@ sed -i "s/$1.vmxf/$2.vmxf/g" "$DATASTOREPATH/$2/$2.vmx"
 sed -i "s/$1.nvram/$2.nvram/g" "$DATASTOREPATH/$2/$2.vmx"
 sed -i "s/$1.vmdk/$2-000001.vmdk/g" "$DATASTOREPATH/$2/$2.vmx"
 
-#Cambiar la referencia del “parent disk” del fichero de definición del disco que debe de apuntar al de la máquina origen (en el directorio ..)
+# Cambiar la referencia del “parent disk” del fichero de definición del disco que debe de apuntar al de la máquina origen (en el directorio ..)
 
 sed -i "s|$1.vmdk|$DATASTOREPATH/$1/$1.vmdk|g" "$DATASTOREPATH/$2/$2-000001.vmdk"
 sed -i "s|$1-000001-delta.vmdk|$2-000001-delta.vmdk|g" "$DATASTOREPATH/$2/$2-000001.vmdk"
@@ -139,9 +139,8 @@ seddelete uuid.location $DATASTOREPATH/$2/$2.vmx
 seddelete sched.swap.derivedName $DATASTOREPATH/$2/$2.vmx
 seddelete ethernet*.generatedAddress $DATASTOREPATH/$2/$2.vmx
 
-#Generar un fichero .vmsd (con nombre del clon) en el que se indica que es una máquina clonada.
-#Coge un fichero .vsmd de un clon generado con VMware Workstation para ver el formato de este archivo
-#Si no se genera el fichero .vmsd, al destruir el clon también se borra el ndisco base del snapshot, lo cual no es deseable ya que pertenece a la máquina origen
+# Generar un fichero .vmsd (con nombre del clon) en el que se indica que es una máquina clonada. Coge un fichero .vsmd de un clon generado con VMware Workstation para ver el formato de este archivo
+# Si no se genera el fichero .vmsd, al destruir el clon también se borra el ndisco base del snapshot, lo cual no es deseable ya que pertenece a la máquina origen
 
 touch $DATASTOREPATH/$2/$2.vmsd
 
@@ -151,7 +150,7 @@ echo "numCloneOf = \"1\"" >> $DATASTOREPATH/$2/$2.vmsd
 echo "sentinel0 = \"$2-000001-delta.vmdk\"" >> $DATASTOREPATH/$2/$2.vmsd
 echo "numSentinels = \"1\"" >> $DATASTOREPATH/$2/$2.vmsd
 
-#Una vez que el directorio clon contiene todos los ficheros necesarios hay que registrar la máquina clon (ESTO ES IMPRESCINDIBLE)
+# Una vez que el directorio clon contiene todos los ficheros necesarios hay que registrar la máquina clon (ESTO ES IMPRESCINDIBLE)
 
 vim-cmd solo/registervm $DATASTOREPATH/$2/$2.vmx
 
@@ -161,7 +160,7 @@ id2=$(get_vmid $2)
 
 vim-cmd vmsvc/reload $id2
 
-#Listar todas las máquinas para comprobar que el clon está disponible
+# Listar todas las máquinas para comprobar que el clon está disponible
 
 echo
 echo "Listado de Máquinas Virtuales:"
