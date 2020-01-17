@@ -1,8 +1,6 @@
 
 # Arquitecturas Virtuales 2019/20
 
-## Scripts para ESXi 5.X
-
 Automatización de la gestión de máquinas virtuales para ESXi 5.X mediante scripts con herramientas CLI proporcionadas por VMWare.
 
 ###  1. Script para la creación de máquinas Virtuales
