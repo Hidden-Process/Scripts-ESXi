@@ -93,8 +93,7 @@ mv $DATASTOREPATH/$2/$1.vmsd $DATASTOREPATH/$2/$2.vmsd
 mv $DATASTOREPATH/$2/$1.vmxf $DATASTOREPATH/$2/$2.vmxf
 mv $DATASTOREPATH/$2/$1-flat.vmdk $DATASTOREPATH/$2/$2-flat.vmdk
 
-# Eliminamos este archivo que se copia al nuevo directorio si la maquina origen se inicio alguna vez ,ya que es un archivo que se crea automaticamente al iniciar una máquina
-# y contiene el estado guardado de la BIOS de la máquina virtual
+# Eliminamos este archivo que se copia al nuevo directorio si la maquina origen se inicio alguna vez ,ya que es un archivo que se crea automaticamente al iniciar una máquina y contiene el estado guardado de la BIOS de la máquina virtual
 
 rm -f  $DATASTOREPATH/$2/$1.nvram
 

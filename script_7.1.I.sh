@@ -111,7 +111,11 @@ addr=00:50:56:$p1:$p2:$p3
 net_card(){
 
 cont=0
+
+# Numero de Nics
 t=$1
+
+# Path
 dir=$2
 
 while [ $cont -lt $t ];
