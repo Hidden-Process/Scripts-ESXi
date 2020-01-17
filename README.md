@@ -1,7 +1,7 @@
 
 # Arquitecturas Virtuales 2019/20
 
-## Scripts ESXi 5.X
+## Scripts para ESXi 5.X
 
 Automatización de la gestión de máquinas virtuales para ESXi 5.X mediante scripts con herramientas CLI proporcionadas por VMWare.
 
@@ -30,7 +30,7 @@ Imaginemos que queremos una máquina virtual que se llame Ubuntu con un disco du
 
 ###  2. Script para la destrucción de máquinas Virtuales
 
-Script que permite destruir completamente una máquina virtual existente, pidiendo confirmación antes de proceder al borrado, en caso de que no exista una máquina con el nombre proporcionado en el argumento, el script finalizará     informando del error.
+Script que permite destruir completamente una máquina virtual existente, pidiendo confirmación antes de proceder al borrado, en caso de que no exista una máquina con el nombre proporcionado en el argumento, el script finalizará informando del error.
 En caso de no introducir correctamente los argumentos requeridos por el script, este mostrará una ayuda de uso.
 En la consola del servidor ESXi, el script se invoca de la siguiente manera:
 
@@ -40,7 +40,7 @@ Un ejemplo de uso podría consistir en borrar la maquina creada con el anterior 
 
 ```#./script_7.1.II.sh Ubuntu```
 
-###  3. Script para la creación de un *full clone*
+###  3. Script para la creación de un *Full Clone*
 
 Como es observable desde el interfaz de vSphere no existe la opción para la creación de clones, esta solo está disponible en el software vCenter, para solucionar esto, este script permite crear un *full clone* de una máquina virtual ya existente, el script antes de copiar recursivamente el contenido de la máquina original al nuevo directorio de la máquina clon y realizar los cambios necesarios en el archivo de confiracion (.vmx) se asegura de que existe la maquina origen y de que no existen la máquina destino, en alguno de estos casos, el script finalizará informando del error.
 
@@ -57,3 +57,10 @@ Un ejemplo de uso podría consistir en clonar la máquina que creamos con el pri
 
 ```#./script_7.2.sh Ubuntu Ubuntu_Clon```
 
+###  4. Script para la creación de un *Linked Clone*
+
+Cabe destacar que para la creación de un *linked clone* es condición necesaria la existencia de un snapshot, en el caso de este script la maquina origen que sea quiere clonar deberá tener un único snapshot, el procedimiento es parecido al script anterior pero en este caso trabajaremos sobre el disco delta generado por el snapshot, usando como base el original que queda congelado tras el snapshot, se crea el nuevo directorio, se copian los archivos necesarios, se renombran, se modifican los ficheros de configuración, y para que todo esto se realice nos aseguraremos de que tanto la maquina origen exista como que la destino mo exista y que el clon se realice con la maquina apagada.
+
+Un ejemplo de uso podría consistir en clonar la máquina que creamos con el script anterior para ello lo invocamos de la siguiente forma:
+
+```#./script_7.2.sh Ubuntu_Clon Ubuntu_Linked```
