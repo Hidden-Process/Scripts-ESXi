@@ -87,6 +87,7 @@ then
        vmkfstools -X  $3G $DATASTOREPATH/$1/$1.vmdk
        echo
        du -sh $DATASTOREPATH/$1/$1-flat.vmdk
+       vim-cmd vmsvc/reload $id
 fi
 
 # Mejora 4: Especificar el número de tarjetas como cuarto argumento.
@@ -136,6 +137,7 @@ done
 if [ $# -gt 3 ];
 then
       net_card "$4" "$DATASTOREPATH/$1/$1.vmx"
+      vim-cmd vmsvc/reload $id
 fi
 
 #Listar todas las máquinas para comprobar que se ha creado
